@@ -130,5 +130,5 @@ class ReputationAction(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     
     def __unicode__(self):
-        return "%s - %s" % (str(self.user.username), str(self.action.name))
+        return "%s - %d" % (str(self.user.username), self.value)
     
