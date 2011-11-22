@@ -6,8 +6,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.contrib.auth.models import User
-from django.conf import settings
 from django_extensions.db.models import TimeStampedModel
+
+from reputation.conf import settings
 
 
 REPUTATION_MAX_GAIN_PER_DAY = settings.REPUTATION_MAX_GAIN_PER_DAY
@@ -65,8 +66,6 @@ class ReputationManager(models.Manager):
         )
         # TODO: use Sum() aggregate
 
-        print relevant_reputation_actions, \
-            sum([action.value for action in relevant_reputation_actions])
         delta = sum([action.value for action in relevant_reputation_actions])
         return delta
 
