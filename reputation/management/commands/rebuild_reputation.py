@@ -22,8 +22,8 @@ class Command(BaseCommand):
 
         for Model, handler in site._registry.iteritems():
             for obj in handler.index_queryset():
-                print obj
                 handler.modify_reputation(obj)
 
         for user in User.objects.filter(is_active=True):
-            print user, Reputation.objects.reputation_for_user(user).reputation
+            print user, Reputation.objects.reputation_for_user(
+                'contributor', user).reputation

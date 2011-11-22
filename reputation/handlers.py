@@ -7,8 +7,11 @@ class BaseReputationHandler(object):
     Default handler for creating ReputationHandler objects.
     """
     model = None
+    dimension = None
 
     def __init__(self, model=None):
+        assert self.dimension, \
+            '%s does not define dimension' % (self.__class__,)
         if model:
             self.model = model
         post_save.connect(self._post_save_signal_callback,
@@ -43,6 +46,7 @@ class BaseReputationHandler(object):
     def modify_reputation(self, instance):
         if self.check_conditions(instance):
             Reputation.objects.log_reputation_action(
+                dimension=self.dimension,
                 user = self.get_target_user(instance),
                 originating_user = self.get_originating_user(instance),
                 target_object = self.get_target_object(instance),
