@@ -21,3 +21,4 @@ class Command(BaseCommand):
         for Model, handler in site._registry.iteritems():
             for obj in handler.index_queryset():
                 print obj
+                handler.modify_reputation(obj)
