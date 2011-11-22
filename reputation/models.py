@@ -122,7 +122,7 @@ class Reputation(TimeStampedModel):
     def save(self, **kwargs):
         super(Reputation, self).save(**kwargs)
         permissions = []
-        for permission, reputation in settings.REPUTATION_PERMISSONS.items():
+        for permission, reputation in settings.REPUTATION_PERMISSIONS.items():
             if self.reputation > reputation:
                 permissions.append(permission)
         self.user.permissions = permissions
@@ -138,7 +138,8 @@ class ReputationAction(TimeStampedModel):
     """
     user = models.ForeignKey(User, related_name = 'target_user')
     originating_user = models.ForeignKey(User,
-                                         related_name='originating_user')
+                                         related_name='originating_user',
+                                         null=True)
 
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()

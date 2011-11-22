@@ -24,5 +24,5 @@ ROOT_URLCONF = 'urls'
 
 REPUTATION_MAX_LOSS_PER_DAY = 200
 REPUTATION_MAX_GAIN_PER_DAY = 200
-REPUTATION_PERMISSONS = {'voting.can_vote_up': 50,
+REPUTATION_PERMISSIONS = {'voting.can_vote_up': 50,
                          'voting.can_vote_down': 150}
