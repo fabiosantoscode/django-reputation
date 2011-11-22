@@ -6,8 +6,11 @@ class BaseReputationHandler(object):
     """
     Default handler for creating ReputationHandler objects.
     """
+    model = None
 
-    def __init__(self):
+    def __init__(self, model=None):
+        if model:
+            self.model = model
         post_save.connect(self._post_save_signal_callback,
             sender=self.model,
             weak=False
@@ -18,6 +21,9 @@ class BaseReputationHandler(object):
         created = kwargs['created']
         if created:
             self.modify_reputation(instance)
+
+    def index_queryset(self):
+        return self.model.objects.all()
 
     def check_conditions(self, instance):
         return False
