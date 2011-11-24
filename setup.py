@@ -6,7 +6,8 @@ except ImportError:
     from setuptools import setup, find_packages
 
 install_requires = [
-    'django-appconf>=0.4.1'
+    'django-appconf>=0.4.1',
+    'django-extensions>=0.6',
 ]
 
 tests_require = [
