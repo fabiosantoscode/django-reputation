@@ -9,6 +9,10 @@ install_requires = [
     'django-appconf>=0.4.1'
 ]
 
+tests_require = [
+    'django-jenkins>=0.11.0',
+    'pep8==0.6.1',
+]
 
 setup(
     name='django-reputation',
@@ -27,4 +31,7 @@ setup(
                    'Programming Language :: Python',
                    'Topic :: Utilities'],
     install_requires=install_requires,
+    tests_require=tests_require,
+    extras_require={'test': tests_require},
+    test_suite='runtests.runtests',
 )
