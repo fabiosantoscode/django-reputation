@@ -1,0 +1,2 @@
+import reputation
+reputation.autodiscover()

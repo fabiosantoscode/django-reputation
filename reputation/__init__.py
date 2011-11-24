@@ -5,8 +5,7 @@ from django.conf import settings
 
 from reputation.sites import site  # do not remove
 
-VERSION = (0, 1, None)
-__version__ = VERSION
+__version__ = (0, 1, 0)
 
 
 def autodiscover():

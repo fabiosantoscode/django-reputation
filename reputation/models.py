@@ -82,7 +82,7 @@ class ReputationManager(models.Manager):
             reputation.save()
 
     def log_reputation_action(self, dimension, user, originating_user,
-                              action_value, target_object):
+                              action_value, target_object, created):
         """
         Attempt to create a ReputationAction object associated with @user
 
@@ -97,6 +97,7 @@ class ReputationManager(models.Manager):
         )
         object_id = target_object.id
 
+        kwargs = dict(created=created)
         reputation_action = ReputationAction(
             dimension=dimension_to_short_dimension(dimension),
             user=user,
@@ -104,6 +105,7 @@ class ReputationManager(models.Manager):
             content_type=content_type_object,
             object_id=object_id,
             value=action_value,
+            **kwargs
         )
         reputation_action.save()
 

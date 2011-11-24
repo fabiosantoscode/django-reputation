@@ -40,6 +40,11 @@ class BaseReputationHandler(object):
     def get_originating_user(self, instance):
         pass
 
+    def get_created(self, instance):
+        if hasattr(instance, 'created'):
+            return instance.created
+        return None
+
     def get_value(self, instance):
         return 0
 
@@ -50,5 +55,6 @@ class BaseReputationHandler(object):
                 user = self.get_target_user(instance),
                 originating_user = self.get_originating_user(instance),
                 target_object = self.get_target_object(instance),
-                action_value = self.get_value(instance)
+                action_value = self.get_value(instance),
+                created = self.get_created(instance),
             )

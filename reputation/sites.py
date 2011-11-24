@@ -1,4 +1,4 @@
-from haystack.exceptions import AlreadyRegistered, NotRegistered
+from reputation.exceptions import AlreadyRegistered, NotRegistered
 
 
 class ReputationSite(object):

@@ -1,26 +1,24 @@
-from distutils.core import setup
-from distutils.command.install import INSTALL_SCHEMES
+try:
+    from setuptools import setup, find_packages
+except ImportError:
+    from ez_setup import use_setuptools
+    use_setuptools()
+    from setuptools import setup, find_packages
 
-# Tell distutils to put the data_files in platform-specific installation
-# locations. See here for an explanation:
-# http://groups.google.com/group/comp.lang.python/browse_thread/thread/35ec7b2fed36eaec/2105ee4d9e8042cb
-for scheme in INSTALL_SCHEMES.values():
-    scheme['data'] = scheme['purelib']
+install_requires = [
+    'django-appconf>=0.4.1'
+]
 
-# Dynamically calculate the version based on VERSION.
-version_tuple = __import__('reputation').VERSION
-if version_tuple[2] is not None:
-    version = "%d.%d_%s" % version_tuple
-else:
-    version = "%d.%d" % version_tuple[:2]
 
 setup(
-    name = 'teknolab-django-reputation',
-    version = version,
-    description = 'Generic user reputation application for Django',
-    url = 'http://github.com/teknolab/teknolab-django-reputation',
-    packages = ['reputation'],
-    classifiers = ['Development Status :: 4 - Beta',
+    name='django-reputation',
+    version="0.1.0",
+    description='Generic user reputation application for Django',
+    url='http://github.com/vad/django-reputation',
+    packages=['reputation'],
+    zip_safe=True,
+    license='BSD',
+    classifiers=['Development Status :: 4 - Beta',
                    'Environment :: Web Environment',
                    'Framework :: Django',
                    'Intended Audience :: Developers',
@@ -28,4 +26,5 @@ setup(
                    'Operating System :: OS Independent',
                    'Programming Language :: Python',
                    'Topic :: Utilities'],
+    install_requires=install_requires,
 )
