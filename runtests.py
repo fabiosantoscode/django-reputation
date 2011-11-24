@@ -44,6 +44,7 @@ if not settings.configured:
 #            'django_jenkins.tasks.with_coverage',
             'django_jenkins.tasks.django_tests',
         ),
+        SITE_ID=1,
     )
 
 def runtests(*test_args):
