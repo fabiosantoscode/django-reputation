@@ -1,12 +1,10 @@
 """
 Rebuild reputation
 """
-from django.contrib.auth.models import User
-
 from django.core.management.base import BaseCommand
 
 from reputation import site
-from reputation.models import Reputation
+from reputation.models import Reputation, ReputationAction
 
 
 class Command(BaseCommand):
@@ -18,12 +16,10 @@ class Command(BaseCommand):
         """
         BaseCommand.handle() contains the logic of management commands
         """
-        ## TODO: delete old index
+        Reputation.objects.all().delete()
+        ReputationAction.objects.all().delete()
 
         for Model, handler in site._registry.iteritems():
             for obj in handler.index_queryset():
                 handler.modify_reputation(obj)
 
-        for user in User.objects.filter(is_active=True):
-            print user, Reputation.objects.reputation_for_user(
-                'contributor', user).reputation
