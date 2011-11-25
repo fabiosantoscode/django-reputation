@@ -14,6 +14,9 @@ class TestModels(TestCase):
         self.user = User(username="gigi")
         self.user.save()
 
+    def tearDown(self):
+        self.user.delete()
+
     def test_basic_reputation(self):
         score = Reputation.objects.reputation_for_user(
             ContentReputationHandler.dimension,
@@ -29,6 +32,3 @@ class TestModels(TestCase):
             self.user
         ).reputation
         self.assertEqual(score, ContentReputationHandler.VALUE)
-
-    def test_fake(self):
-        self.assertEqual(0, 1)
