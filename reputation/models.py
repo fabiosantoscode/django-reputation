@@ -112,7 +112,8 @@ class ReputationManager(models.Manager):
         today_delta = Reputation.objects.calculate_reputation_for_today(
             dimension, user
         )
-        expected_delta = action_value + today_delta
+#        expected_delta = action_value + today_delta
+        expected_delta = today_delta
 
         value = max(
             -1*REPUTATION_MAX_LOSS_PER_DAY,
