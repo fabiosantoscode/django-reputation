@@ -9,10 +9,11 @@ runtests
 """
 
 import sys
-from django.core.management import call_command
 from os.path import dirname, abspath
 
+from django.core.management import call_command
 from django.conf import settings
+
 
 if not settings.configured:
     settings.configure(
@@ -48,17 +49,25 @@ if not settings.configured:
     )
 
 def runtests(*test_args):
+    from django.test.simple import run_tests
+
     if 'south' in settings.INSTALLED_APPS:
         from south.management.commands import patch_for_test_db_setup
         patch_for_test_db_setup()
 
-#    if not test_args:
-#        test_args = ['tests']
+    if not test_args:  ## setup.py test
+        test_args = ['tests', '--jenkins']
     parent = dirname(abspath(__file__))
     sys.path.insert(0, parent)
-    val = call_command('jenkins', 'tests', verbosity=1, interactive=True)
-#    failures = run_tests(test_args)
-#    sys.exit(failures)
+    if '--jenkins' in test_args:
+        call_command('jenkins', 'tests', verbosity=1, interactive=True)
+    else:
+        failures = run_tests(test_args)
+        sys.exit(failures)
 
 if __name__ == '__main__':
-    runtests(*sys.argv[1:])
+    argv = sys.argv[1:]
+    if not argv:
+        argv = ['tests']
+
+    runtests(*argv)
