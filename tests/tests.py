@@ -29,3 +29,6 @@ class TestModels(TestCase):
             self.user
         ).reputation
         self.assertEqual(score, ContentReputationHandler.VALUE)
+
+    def test_fake(self):
+        self.assertEqual(0, 1)

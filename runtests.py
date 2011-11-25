@@ -61,6 +61,7 @@ def runtests(*test_args):
     sys.path.insert(0, parent)
     if '--jenkins' in test_args:
         call_command('jenkins', 'tests', verbosity=1, interactive=True)
+        sys.exit(0)
     else:
         failures = run_tests(test_args)
         sys.exit(failures)
